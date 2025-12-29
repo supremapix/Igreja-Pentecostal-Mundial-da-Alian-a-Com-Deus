@@ -27,7 +27,8 @@ import {
   SCHEDULE, 
   NEIGHBORHOODS, 
   CITIES,
-  SOCIAL_LINKS
+  SOCIAL_LINKS,
+  HERO_PHRASES
 } from './constants';
 import { getDailyVerse, getDailyPrayer } from './services/geminiService';
 
@@ -50,6 +51,48 @@ const useReveal = () => {
 };
 
 // --- Subcomponents ---
+
+const Typewriter: React.FC = () => {
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [speed, setSpeed] = useState(150);
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const fullText = HERO_PHRASES[currentPhraseIndex];
+      
+      if (!isDeleting) {
+        setCurrentText(fullText.substring(0, currentText.length + 1));
+        setSpeed(150);
+        
+        if (currentText === fullText) {
+          setSpeed(2000); // Wait before start deleting
+          setIsDeleting(true);
+        }
+      } else {
+        setCurrentText(fullText.substring(0, currentText.length - 1));
+        setSpeed(75);
+        
+        if (currentText === '') {
+          setIsDeleting(false);
+          setCurrentPhraseIndex((prev) => (prev + 1) % HERO_PHRASES.length);
+          setSpeed(500);
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, speed);
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentPhraseIndex, speed]);
+
+  return (
+    <span className="text-yellow-400 min-h-[1.2em] inline-block">
+      {currentText}
+      <span className="animate-pulse border-r-4 border-yellow-400 ml-1 h-8 md:h-12 inline-block align-middle"></span>
+    </span>
+  );
+};
 
 const DailyInsights: React.FC = () => {
   const [verse, setVerse] = useState<any>(null);
@@ -282,8 +325,8 @@ const App: React.FC = () => {
               <Sparkles size={14} className="shrink-0" /> Seja Bem-vindo à Casa do Pai
             </span>
           </div>
-          <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 md:mb-8 leading-[1.1] animate-fade-up" style={{animationDelay: '0.3s'}}>
-            Aliança de Vida <br className="hidden md:block" /> com <span className="text-yellow-400">o Criador.</span>
+          <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 md:mb-8 leading-[1.1] animate-fade-up h-[3.5em] md:h-[2.5em] lg:h-auto" style={{animationDelay: '0.3s'}}>
+            <Typewriter />
           </h1>
           <p className="text-lg md:text-2xl text-blue-100 mb-10 md:mb-12 max-w-3xl mx-auto font-light leading-relaxed animate-fade-up" style={{animationDelay: '0.5s'}}>
             Uma comunidade pentecostal comprometida com a verdade bíblica e o agir sobrenatural do Espírito Santo.
@@ -426,7 +469,7 @@ const App: React.FC = () => {
               <div className="bg-white p-4 rounded-[2rem] md:rounded-[3rem] shadow-2xl border border-gray-100 h-[400px] md:h-[550px] relative overflow-hidden group">
                 <div className="absolute inset-0 bg-blue-900 flex items-center justify-center flex-col p-8 md:p-12 text-center text-white">
                   <div className="w-16 h-16 md:w-24 md:h-24 bg-yellow-500 text-blue-950 rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-center mb-6 md:mb-8 animate-bounce shadow-2xl shadow-yellow-500/20">
-                    <MapPin size={32} md:size={48} />
+                    <MapPin size={32} />
                   </div>
                   <h4 className="text-2xl md:text-3xl font-serif font-bold mb-4">{ADDRESS.street}</h4>
                   <p className="text-lg md:text-xl text-blue-200 mb-8 md:mb-10 max-w-md font-light">{ADDRESS.neighborhood}, {ADDRESS.city}</p>
@@ -522,17 +565,17 @@ const App: React.FC = () => {
                   { icon: Youtube, link: SOCIAL_LINKS.youtube, color: 'hover:bg-red-600' }
                 ].map((item, i) => (
                   <a key={i} href={item.link} target="_blank" rel="noopener noreferrer" className={`w-12 h-12 md:w-14 md:h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 hover:text-white transition-all duration-500 transform hover:scale-110 ${item.color} shadow-sm`}>
-                    <item.icon size={24} md:size={28} />
+                    <item.icon size={24} />
                   </a>
                 ))}
               </div>
             </div>
 
-            <div ref={useReveal()} className="reveal">
+            <div ref={useReveal()} className="reveal transition-all duration-1000 opacity-0 translate-y-8 active:opacity-100 active:translate-y-0">
               <h5 className="font-black text-blue-900 mb-8 uppercase text-[10px] tracking-[0.3em]">Menu Rápido</h5>
               <ul className="space-y-4 md:space-y-5 text-sm md:text-base text-gray-400 font-medium">
                 {['Início', 'Sobre Nós', 'Nossos Cultos', 'Localização', 'Contato'].map((l, idx) => (
-                  <li key={l} style={{ transitionDelay: `${idx * 100}ms` }}>
+                  <li key={l} className="reveal-child transition-all duration-700 opacity-0 translate-x-4" style={{ transitionDelay: `${(idx + 1) * 150}ms` }}>
                     <button onClick={() => scrollTo(l.toLowerCase().split(' ')[0].normalize("NFD").replace(/[\u0300-\u036f]/g, ""))} className="hover:text-blue-900 transition-all hover:translate-x-2 flex items-center gap-2 group">
                       <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" /> {l}
                     </button>
@@ -541,19 +584,19 @@ const App: React.FC = () => {
               </ul>
             </div>
 
-            <div ref={useReveal()} className="reveal">
+            <div ref={useReveal()} className="reveal transition-all duration-1000 opacity-0 translate-y-8 active:opacity-100 active:translate-y-0">
               <h5 className="font-black text-blue-900 mb-8 uppercase text-[10px] tracking-[0.3em]">Fale Conosco</h5>
               <div className="space-y-5 md:space-y-6 text-gray-500 font-light text-sm md:text-lg">
-                <p className="flex items-start gap-4">
+                <p className="flex items-start gap-4 reveal-child transition-all duration-700 opacity-0 translate-x-4" style={{ transitionDelay: '200ms' }}>
                   <MapPin size={24} className="text-yellow-500 shrink-0 mt-1" />
                   <span>{ADDRESS.street}, {ADDRESS.neighborhood}<br />{ADDRESS.city}</span>
                 </p>
                 <div className="space-y-3">
-                  <p className="flex items-center gap-4 group cursor-pointer" onClick={() => window.open(`tel:${CONTACTS.phone.replace(/\D/g, '')}`)}>
+                  <p className="flex items-center gap-4 group cursor-pointer reveal-child transition-all duration-700 opacity-0 translate-x-4" style={{ transitionDelay: '400ms' }} onClick={() => window.open(`tel:${CONTACTS.phone.replace(/\D/g, '')}`)}>
                     <Phone size={20} className="text-yellow-500 group-hover:rotate-12 transition-transform" />
                     <span className="group-hover:text-blue-900 transition-colors font-medium">{CONTACTS.phone}</span>
                   </p>
-                  <p className="flex items-center gap-4 group cursor-pointer" onClick={() => window.open(`https://wa.me/${CONTACTS.whatsapp1Raw}`)}>
+                  <p className="flex items-center gap-4 group cursor-pointer reveal-child transition-all duration-700 opacity-0 translate-x-4" style={{ transitionDelay: '600ms' }} onClick={() => window.open(`https://wa.me/${CONTACTS.whatsapp1Raw}`)}>
                     <MessageCircle size={20} className="text-green-500 group-hover:scale-110 transition-transform" />
                     <span className="group-hover:text-blue-900 transition-colors font-medium">{CONTACTS.whatsapp1}</span>
                   </p>
@@ -576,6 +619,14 @@ const App: React.FC = () => {
 
       {/* Floating Chatbot Component */}
       <Chatbot />
+      
+      {/* Global Style for reveal child animations */}
+      <style>{`
+        .reveal.active .reveal-child {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      `}</style>
     </div>
   );
 };

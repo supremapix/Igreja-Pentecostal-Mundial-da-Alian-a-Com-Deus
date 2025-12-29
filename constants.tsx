@@ -47,3 +47,11 @@ export const CITIES: Cidade[] = [
   { nome: "Lagoa Grande", distancia: "50 km" },
   { nome: "Santa Maria da Boa Vista", distancia: "110 km" },
 ];
+
+export const HERO_PHRASES = [
+  "Aliança de Vida com o Criador.",
+  "Onde milagres acontecem todos os dias.",
+  "Firmados na Rocha que é Cristo.",
+  "Uma família unida pelo Espírito Santo.",
+  "Petrolina impactada pelo Reino de Deus."
+];
