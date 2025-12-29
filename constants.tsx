@@ -28,30 +28,39 @@ export const ADDRESS = {
 };
 
 export const SCHEDULE: Evento[] = [
-  { id: 1, titulo: "Culto de Celebração", data: "Domingos", horario: "19:00", descricao: "Um momento de louvor, adoração e palavra profética." },
-  { id: 2, titulo: "Círculo de Oração", data: "Terças", horario: "15:00", descricao: "Intercessão e busca pela face de Deus." },
-  { id: 3, titulo: "Estudo Bíblico", data: "Quintas", horario: "19:30", descricao: "Aprofundamento nas Sagradas Escrituras." },
-  { id: 4, titulo: "Vigília Regional", data: "Sexta (Mensal)", horario: "22:00", descricao: "Busca intensa pelo poder do Espírito Santo." },
+  { id: 1, titulo: "Culto de Celebração", data: "Domingos", horario: "19:00", descricao: "O grande encontro da família para celebrar a vitória em Cristo." },
+  { id: 2, titulo: "Círculo de Oração", data: "Terças", horario: "15:00", descricao: "Intercessão poderosa onde as correntes são quebradas pelo poder da fé." },
+  { id: 3, titulo: "Estudo Bíblico", data: "Quintas", horario: "19:30", descricao: "Aprofundamento na sã doutrina para o crescimento espiritual." },
+  { id: 4, titulo: "Vigília de Milagres", data: "Sexta (Mensal)", horario: "22:00", descricao: "Uma noite de busca intensa e manifestação da glória de Deus." },
 ];
 
 export const NEIGHBORHOODS: Bairro[] = [
-  { nome: "Serrote do Urubu", distancia: "Sede", instrucoes: "Localizado próximo à entrada principal da comunidade." },
-  { nome: "Tapera", distancia: "5 km", instrucoes: "Seguir pela estrada vicinal leste." },
-  { nome: "Roçado", distancia: "8 km", instrucoes: "Acesso via BR-428 sentido Recife." },
-  { nome: "Pedra do Bode", distancia: "3 km", instrucoes: "Continuação da via principal do Serrote." },
+  { nome: "Serrote do Urubu", distancia: "Sede", instrucoes: "Nossa casa principal! Venha participar da nossa comunidade local." },
+  { nome: "Tapera", distancia: "5 km", instrucoes: "Apenas 10 minutos! Siga pela via principal sentido Rio São Francisco." },
+  { nome: "Roçado", distancia: "8 km", instrucoes: "Um caminho curto para uma grande bênção. Use a BR-428 para chegar rápido." },
+  { nome: "Pedra do Bode", distancia: "3 km", instrucoes: "Estamos logo ali! Uma caminhada de fé ou 5 minutos de carro." },
+  { nome: "Curaçá", distancia: "15 km", instrucoes: "Atravessando a ponte para receber o que Deus tem preparado para você." },
 ];
 
 export const CITIES: Cidade[] = [
   { nome: "Petrolina", distancia: "12 km" },
   { nome: "Juazeiro", distancia: "15 km" },
   { nome: "Lagoa Grande", distancia: "50 km" },
-  { nome: "Santa Maria da Boa Vista", distancia: "110 km" },
+  { nome: "Casa Nova", distancia: "70 km" },
 ];
 
 export const HERO_PHRASES = [
-  "Aliança de Vida com o Criador.",
-  "Onde milagres acontecem todos os dias.",
   "Firmados na Rocha que é Cristo.",
-  "Uma família unida pelo Espírito Santo.",
-  "Petrolina impactada pelo Reino de Deus."
+  "Aliança de Vida com o Criador.",
+  "Onde o Impossível se torna Real.",
+  "Uma Família Pronta para te Receber.",
+  "Petrolina Impactada pela Glória de Deus.",
+  "Venha Viver o Sobrenatural Conosco."
+];
+
+export const MINISTRIES = [
+  { title: "Louvor & Adoração", icon: "Music", desc: "Ministrando o coração de Deus através da música e adoração fervorosa." },
+  { title: "Geração Aliança", icon: "Users", desc: "Fortalecendo nossa juventude para os desafios do mundo atual." },
+  { title: "Crianças de Cristo", icon: "Baby", desc: "Ensinando os pequenos no caminho em que devem andar." },
+  { title: "Ação Social", icon: "Heart", desc: "Estendendo a mão ao próximo e refletindo o amor de Jesus na prática." }
 ];
