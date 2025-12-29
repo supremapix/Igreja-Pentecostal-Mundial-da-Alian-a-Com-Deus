@@ -1,0 +1,7 @@
+{
+  "name": "Igreja Pentecostal Mundial da Aliança Com Deus",
+  "description": "Site oficial da Igreja Pentecostal Mundial da Aliança Com Deus. Conectando fé, comunidade e liderança espiritual.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
